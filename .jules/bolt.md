@@ -1,0 +1,3 @@
+## 2024-05-18 - Route-Based Code Splitting
+**Learning:** The React application in this codebase (which uses `createBrowserRouter` from React Router) initially loaded all main pages (`LandingPage`, `PracticePage`, `ProgressPage`) statically in `src/app/routes.ts`. This created a large monolithic main JS bundle (~774KB).
+**Action:** Always check routing files for static imports of large page components. Implementing route-based lazy loading with React Router 6+ `lazy: async () => ({ Component: (await import('...')).ComponentName })` effectively splits the bundle (e.g., reducing the main bundle to ~425KB) without changing architectural behavior.
