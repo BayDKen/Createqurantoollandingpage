@@ -1,0 +1,5 @@
+## 2023-10-27 - Code Splitting for Routes
+
+**Learning:** Large React components loaded for specific routes can increase the initial JavaScript bundle size significantly, delaying Time to Interactive (TTI) for users landing on the main page. This issue is particularly evident when the application grows to encompass different sections like 'practice' and 'progress'.
+
+**Action:** Implemented route-based code splitting using `React.lazy()` and `Suspense` in Vite/React Router setups. For any future route components added to the project, use `React.lazy()` if the route implies loading sizable features that are not strictly necessary on initial load. Ensure a meaningful fallback is provided to the `Suspense` boundary. Also remember to add `node_modules` and compiled files like `dist` to `.gitignore` from the get-go if not already present.
