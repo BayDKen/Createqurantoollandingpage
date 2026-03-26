@@ -1,0 +1,3 @@
+## 2026-03-01 - Route-Level Code Splitting for Large Bundle Sizes
+**Learning:** The initial application bundle was quite large (>790 KB) because it synchronously loaded all route components, including heavy dependencies like react-dnd, huge static arrays like quizQuestions, and complex voice recognition components. This meant the landing page carried a huge unnecessary payload.
+**Action:** Always utilize React Router's `lazy` feature (`lazy: async () => { const { Page } = await import(...) }`) to code-split route components. This defers the loading of route-specific logic, drastically reducing the initial chunk size and improving Time-To-Interactive (TTI).
