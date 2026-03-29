@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect, memo } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Mic, MicOff, AlertCircle, CheckCircle, XCircle } from "lucide-react";
 import { useLanguage } from "./language-context";
@@ -200,7 +200,7 @@ function WaveformBars() {
   );
 }
 
-export function VoiceAnswerButton({
+export const VoiceAnswerButton = memo(function VoiceAnswerButton({
   answers,
   correctAnswer,
   onMatch,
@@ -864,4 +864,4 @@ export function VoiceAnswerButton({
       )}
     </div>
   );
-}
+});

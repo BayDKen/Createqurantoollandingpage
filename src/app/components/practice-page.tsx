@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo, memo } from "react";
 import {
   ChevronDown,
   LogIn,
@@ -115,7 +115,7 @@ interface DraggableAnswerProps {
   isInDropZone: boolean;
 }
 
-function DraggableAnswer({ answer, index, isDark, disabled, isInDropZone }: DraggableAnswerProps) {
+const DraggableAnswer = memo(function DraggableAnswer({ answer, index, isDark, disabled, isInDropZone }: DraggableAnswerProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [{ isDragging }, drag] = useDrag(
     () => ({
@@ -170,7 +170,7 @@ function DraggableAnswer({ answer, index, isDark, disabled, isInDropZone }: Drag
       )}
     </motion.div>
   );
-}
+});
 
 /* ─── Drop zone ─── */
 interface DropZoneProps {
@@ -184,7 +184,7 @@ interface DropZoneProps {
   t: (key: string) => string;
 }
 
-function DropZone({
+const DropZone = memo(function DropZone({
   droppedAnswer,
   isDark,
   isConfirmed,
@@ -307,7 +307,7 @@ function DropZone({
       </AnimatePresence>
     </div>
   );
-}
+});
 
 /* ─── Play Tilawah Button ─── */
 interface PlayTilawahButtonProps {
@@ -316,7 +316,7 @@ interface PlayTilawahButtonProps {
   label: string;
 }
 
-function PlayTilawahButton({ surahNumber, ayahNumber, label }: PlayTilawahButtonProps) {
+const PlayTilawahButton = memo(function PlayTilawahButton({ surahNumber, ayahNumber, label }: PlayTilawahButtonProps) {
   const { isPlaying, isLoading, toggle } = useAyahAudio(surahNumber, ayahNumber);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -366,10 +366,10 @@ function PlayTilawahButton({ surahNumber, ayahNumber, label }: PlayTilawahButton
       </motion.div>
     </motion.button>
   );
-}
+});
 
 /* ─── Language Dropdown (Practice Header) ─── */
-function LangDropdown({ isDark }: { isDark: boolean }) {
+const LangDropdown = memo(function LangDropdown({ isDark }: { isDark: boolean }) {
   const { lang, setLang } = useLanguage();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -448,7 +448,7 @@ function LangDropdown({ isDark }: { isDark: boolean }) {
       </AnimatePresence>
     </div>
   );
-}
+});
 
 /* ─── Main Practice Page ─── */
 export function PracticePage() {

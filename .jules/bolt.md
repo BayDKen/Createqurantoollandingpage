@@ -1,0 +1,3 @@
+## 2026-03-29 - [Memoizing Drag and Drop Components]
+**Learning:** React DnD interactions can cause heavy re-renders if the surrounding functional components are not memoized. This is especially true for complex setups like `PracticePage` containing multiple child components (`DraggableAnswer`, `DropZone`, `PlayTilawahButton`, `LangDropdown`, and `VoiceAnswerButton`).
+**Action:** Use `React.memo` generously to wrap purely presentational components or components whose props do not frequently change, particularly when they are situated within interactive views (like drag-and-drop contexts) to optimize performance.
