@@ -25,13 +25,38 @@ export function getAbsoluteAyahNumber(surahNumber: number, ayahNumber: number): 
   return (SURAH_AYAH_OFFSET[surahNumber] ?? 0) + ayahNumber;
 }
 
+// Cache for audio URLs to prevent duplicate API calls
+// ⚡ Bolt Performance Optimization: Caching expensive API calls
+// This cache stores the audio URLs for previously fetched ayahs, reducing network requests,
+// latency, and server load when users retry questions or play the same ayah multiple times.
+const audioUrlCache = new Map<string, string>();
+
 // Get audio URL for a specific ayah using Al-Quran Cloud API
 export async function getAyahAudioUrl(surahNumber: number, ayahNumber: number): Promise<string> {
-  const res = await fetch(
-    `https://api.alquran.cloud/v1/ayah/${surahNumber}:${ayahNumber}/ar.alafasy`
-  );
-  const data = await res.json();
-  return data?.data?.audio ?? "";
+  const cacheKey = `${surahNumber}:${ayahNumber}`;
+
+  // Return cached URL if available
+  if (audioUrlCache.has(cacheKey)) {
+    return audioUrlCache.get(cacheKey)!;
+  }
+
+  try {
+    const res = await fetch(
+      `https://api.alquran.cloud/v1/ayah/${surahNumber}:${ayahNumber}/ar.alafasy`
+    );
+    const data = await res.json();
+    const url = data?.data?.audio ?? "";
+
+    // Save to cache for future requests
+    if (url) {
+      audioUrlCache.set(cacheKey, url);
+    }
+
+    return url;
+  } catch (error) {
+    console.error("Failed to fetch audio URL", error);
+    return "";
+  }
 }
 
 // Comprehensive quiz questions with real Quran verses (sambung ayat / verse continuation)
