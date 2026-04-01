@@ -1,0 +1,17 @@
+
+> @figma/my-make-file@0.0.1 dev
+> vite
+
+
+  VITE v6.3.5  ready in 564 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+Error: The following dependencies are imported but could not be resolved:
+
+  figma:asset/30fa87d76d1b1890e1726173d651c0871eb45f2f.png (imported by /app/src/app/components/header.tsx)
+
+Are they installed?
+    at file:///app/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:14849:15
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async file:///app/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:46985:28
