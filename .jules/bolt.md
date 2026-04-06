@@ -1,0 +1,3 @@
+## 2025-04-06 - Use React.memo() on draggable child components
+**Learning:** In a React application using react-dnd, the parent component that manages drop zone state causes O(n) full re-renders for all draggable children in lists when the state changes.
+**Action:** Use React.memo() on draggable child components rendered in lists to prevent O(n) full re-renders when the parent drop zone state changes.
