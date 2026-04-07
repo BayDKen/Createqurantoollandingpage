@@ -1,0 +1,10 @@
+
+> @figma/my-make-file@0.0.1 dev /app
+> vite
+
+6:29:35 PM [vite] (client) Re-optimizing dependencies because vite config has changed
+
+  VITE v6.3.5  ready in 408 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
