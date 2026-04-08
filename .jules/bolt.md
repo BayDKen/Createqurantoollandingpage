@@ -1,0 +1,3 @@
+## 2025-05-15 - [React DnD Optimization]
+**Learning:** In a React DnD setup with multiple draggable child components inside a parent list, any state change in the parent drop zone (like updating the dropped item) will trigger a re-render of all draggable children, resulting in an O(n) re-render cost.
+**Action:** Use `React.memo()` on the draggable child components (e.g., `DraggableAnswer`) to prevent unnecessary full re-renders when the parent drop zone state updates.
