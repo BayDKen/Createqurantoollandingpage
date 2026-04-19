@@ -1,0 +1,3 @@
+## 2024-04-19 - React DnD Child Re-renders
+**Learning:** When using React DnD, dropping an item or dragging it often updates the parent state (e.g., changing the drop zone state or confirming an answer). This state change triggers a full re-render of the parent, which cascades down to all draggable child components in the list. Without memoization, this causes an O(n) re-render penalty where all children re-render, even if their individual props haven't changed.
+**Action:** Heavily utilize `React.memo()` on draggable child components rendered in lists to prevent O(n) full re-renders when the parent drop zone state changes.
