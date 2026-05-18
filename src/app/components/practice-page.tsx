@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { useState, memo, useRef, useEffect, useCallback, useMemo } from "react";
 import {
   ChevronDown,
   LogIn,
@@ -115,7 +115,7 @@ interface DraggableAnswerProps {
   isInDropZone: boolean;
 }
 
-function DraggableAnswer({ answer, index, isDark, disabled, isInDropZone }: DraggableAnswerProps) {
+const DraggableAnswer = memo(function DraggableAnswer({ answer, index, isDark, disabled, isInDropZone }: DraggableAnswerProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [{ isDragging }, drag] = useDrag(
     () => ({
@@ -170,7 +170,7 @@ function DraggableAnswer({ answer, index, isDark, disabled, isInDropZone }: Drag
       )}
     </motion.div>
   );
-}
+});
 
 /* ─── Drop zone ─── */
 interface DropZoneProps {
@@ -184,7 +184,7 @@ interface DropZoneProps {
   t: (key: string) => string;
 }
 
-function DropZone({
+const DropZone = memo(function DropZone({
   droppedAnswer,
   isDark,
   isConfirmed,
@@ -307,7 +307,7 @@ function DropZone({
       </AnimatePresence>
     </div>
   );
-}
+});
 
 /* ─── Play Tilawah Button ─── */
 interface PlayTilawahButtonProps {
