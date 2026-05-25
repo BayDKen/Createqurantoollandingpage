@@ -1,0 +1,3 @@
+## 2024-05-18 - [Preventing O(n) re-renders in React DnD Lists]
+**Learning:** When using React DnD (useDrag/useDrop) for list items, changes to the parent drop zone's state naturally trigger re-renders for all child items in the list (an O(n) operation). In this codebase, dragging and dropping answer cards caused full re-renders of the list since the drop zone tracked `droppedAnswer` state.
+**Action:** Heavily utilize `React.memo()` on draggable child components (like `DraggableAnswer`) to prevent unnecessary full re-renders when the parent drop zone state changes. This ensures that only the modified items and parent are re-rendered, reducing complexity to O(1).
