@@ -1,0 +1,3 @@
+## 2024-05-28 - DraggableAnswer React.memo Optimization
+**Learning:** In react-dnd lists, child items that can be dropped onto a target often re-render when the drop target updates its state (e.g., setting the dropped item). Here, `DraggableAnswer` components were causing O(n) re-renders when a single answer was dropped, because the parent `PracticePage` state `droppedAnswer` updated.
+**Action:** Use `React.memo` on draggable list items to prevent full list re-renders when the parent drop zone state changes. This is specifically relevant when passing down complex or numerous props where we want shallow equality checks to skip re-rendering undisturbed list siblings.
