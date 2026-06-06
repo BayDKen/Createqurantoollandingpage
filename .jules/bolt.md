@@ -1,0 +1,3 @@
+## 2024-06-06 - Practice Page Draggable Child Components
+**Learning:** `DraggableAnswer` is a child component rendered in a list during DnD practice, but it's not wrapped in `React.memo()`. As memory highlights, heavily utilizing `React.memo()` on draggable child components rendered in lists prevents O(n) full re-renders when the parent drop zone state changes. Also, ensure build artifacts and unused lockfiles are properly ignored or not checked in.
+**Action:** Wrap `DraggableAnswer` with `React.memo` in `src/app/components/practice-page.tsx`. Added `.gitignore` configuration for dist/ and node_modules/ so dependencies won't leak into PRs.
