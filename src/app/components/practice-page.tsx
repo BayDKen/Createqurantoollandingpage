@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo, memo } from "react";
 import {
   ChevronDown,
   LogIn,
@@ -107,6 +107,11 @@ function useAyahAudio(surahNumber: number, ayahNumber: number) {
 }
 
 /* ─── Draggable answer card ─── */
+// ⚡ Bolt Optimization: Memoize DraggableAnswer component
+// Why: When the drop zone state changes in the parent (e.g. dragging starts, item dropped), it triggers a full re-render of the list. By wrapping the DraggableAnswer in React.memo, we prevent O(n) re-renders of all unchanged list items, avoiding unnecessary layout recalculations and React DnD hook re-evaluations for each card.
+// Impact: Reduces React re-renders from O(n) to O(1) for unchanged answers when parent drop state changes.
+// Measurement: Use React Profiler to verify that unchanged list items no longer re-render when an item is dragged or dropped.
+
 interface DraggableAnswerProps {
   answer: string;
   index: number;
@@ -115,7 +120,7 @@ interface DraggableAnswerProps {
   isInDropZone: boolean;
 }
 
-function DraggableAnswer({ answer, index, isDark, disabled, isInDropZone }: DraggableAnswerProps) {
+const DraggableAnswer = memo(function DraggableAnswer({ answer, index, isDark, disabled, isInDropZone }: DraggableAnswerProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [{ isDragging }, drag] = useDrag(
     () => ({
@@ -170,7 +175,7 @@ function DraggableAnswer({ answer, index, isDark, disabled, isInDropZone }: Drag
       )}
     </motion.div>
   );
-}
+});
 
 /* ─── Drop zone ─── */
 interface DropZoneProps {
