@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo, memo } from "react";
 import {
   ChevronDown,
   LogIn,
@@ -115,7 +115,11 @@ interface DraggableAnswerProps {
   isInDropZone: boolean;
 }
 
-function DraggableAnswer({ answer, index, isDark, disabled, isInDropZone }: DraggableAnswerProps) {
+// ⚡ Bolt Optimization: Add React.memo to DraggableAnswer
+// Why: Prevents O(n) re-renders of list items when parent drag-and-drop state changes
+// Impact: Reduces unnecessary re-renders during drag operations
+// Measurement: Use React Profiler to verify fewer re-renders while dragging
+const DraggableAnswer = memo(function DraggableAnswer({ answer, index, isDark, disabled, isInDropZone }: DraggableAnswerProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [{ isDragging }, drag] = useDrag(
     () => ({
@@ -170,7 +174,7 @@ function DraggableAnswer({ answer, index, isDark, disabled, isInDropZone }: Drag
       )}
     </motion.div>
   );
-}
+});
 
 /* ─── Drop zone ─── */
 interface DropZoneProps {
