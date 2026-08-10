@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo, memo } from "react";
 import {
   ChevronDown,
   LogIn,
@@ -115,7 +115,11 @@ interface DraggableAnswerProps {
   isInDropZone: boolean;
 }
 
-function DraggableAnswer({ answer, index, isDark, disabled, isInDropZone }: DraggableAnswerProps) {
+// ⚡ Bolt Optimization: Wrap DraggableAnswer in React.memo()
+// Why: Prevents O(n) full re-renders of all draggable child elements when the parent drop zone state changes.
+// Impact: Significantly reduces React rendering workload during drag operations.
+// Measurement: Verify reduced re-renders in React DevTools Profiler during drag-and-drop.
+const DraggableAnswer = memo(function DraggableAnswer({ answer, index, isDark, disabled, isInDropZone }: DraggableAnswerProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [{ isDragging }, drag] = useDrag(
     () => ({
@@ -170,7 +174,7 @@ function DraggableAnswer({ answer, index, isDark, disabled, isInDropZone }: Drag
       )}
     </motion.div>
   );
-}
+});
 
 /* ─── Drop zone ─── */
 interface DropZoneProps {
@@ -184,7 +188,11 @@ interface DropZoneProps {
   t: (key: string) => string;
 }
 
-function DropZone({
+// ⚡ Bolt Optimization: Wrap DropZone in React.memo()
+// Why: Prevents unnecessary full re-renders of the drop zone when unrelated parent state changes.
+// Impact: Improves performance during practice session.
+// Measurement: Verify reduced re-renders in React DevTools Profiler.
+const DropZone = memo(function DropZone({
   droppedAnswer,
   isDark,
   isConfirmed,
@@ -307,7 +315,7 @@ function DropZone({
       </AnimatePresence>
     </div>
   );
-}
+});
 
 /* ─── Play Tilawah Button ─── */
 interface PlayTilawahButtonProps {
