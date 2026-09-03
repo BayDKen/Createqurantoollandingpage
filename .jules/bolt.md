@@ -1,0 +1,3 @@
+## 2025-05-19 - Route-Level Code Splitting for React Router v7
+**Learning:** React Router v7 supports a native `lazy` property on route objects, which is simpler and more robust than wrapping components with `React.lazy()` and `<Suspense>`. It resolves both the `Component` and `ErrorBoundary` dynamically.
+**Action:** When working on React Router v7 projects with large page components, always use the `lazy` property on the route configuration to dynamically import routes, reducing the initial bundle size significantly. Make sure to map the resolved module to the `{ Component: m.ExportName }` object structure.
