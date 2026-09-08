@@ -1,0 +1,3 @@
+## 2025-03-05 - Lazy Loading Large Route Components
+**Learning:** React Router v7 supports out-of-the-box route-level code splitting using the `lazy` property directly in the route objects of `createBrowserRouter`. When using `lazy` with named exports, we must explicitly map the module's exported function to the `Component` key using `.then(m => ({ Component: m.ComponentName }))` to ensure the router correctly assigns the component.
+**Action:** Use this pattern to lazily load heavy route components (like `PracticePage` and `ProgressPage` which are 40kb+ each) to reduce initial bundle size and improve load times, but ensure to use the `.then(...)` mapping for named exports to prevent router errors.
