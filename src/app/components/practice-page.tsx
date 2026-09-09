@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo, memo } from "react";
 import {
   ChevronDown,
   LogIn,
@@ -107,6 +107,10 @@ function useAyahAudio(surahNumber: number, ayahNumber: number) {
 }
 
 /* ─── Draggable answer card ─── */
+// ⚡ Bolt Optimization: Memoize DraggableAnswer component
+// Why: Prevents O(n) re-renders of list items when parent drag/drop state changes
+// Impact: Reduces React render time for list of answers significantly when items are dropped
+// Measurement: Use React Profiler to verify DraggableAnswer skips renders on parent state changes
 interface DraggableAnswerProps {
   answer: string;
   index: number;
@@ -115,7 +119,7 @@ interface DraggableAnswerProps {
   isInDropZone: boolean;
 }
 
-function DraggableAnswer({ answer, index, isDark, disabled, isInDropZone }: DraggableAnswerProps) {
+const DraggableAnswer = memo(function DraggableAnswer({ answer, index, isDark, disabled, isInDropZone }: DraggableAnswerProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [{ isDragging }, drag] = useDrag(
     () => ({
@@ -170,7 +174,7 @@ function DraggableAnswer({ answer, index, isDark, disabled, isInDropZone }: Drag
       )}
     </motion.div>
   );
-}
+});
 
 /* ─── Drop zone ─── */
 interface DropZoneProps {
