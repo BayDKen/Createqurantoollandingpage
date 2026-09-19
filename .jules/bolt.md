@@ -1,0 +1,3 @@
+## 2024-05-30 - Memoizing draggable list items to prevent O(n) re-renders
+**Learning:** When using React DnD, dragging an item causes state updates in the parent component (e.g., updating the currently dragged item or drop zone state). If the list items themselves are not memoized, this causes an O(n) re-render of all items in the list on every state change during the drag interaction, leading to janky animations and poor responsiveness, especially on lower-end devices.
+**Action:** Always wrap individual draggable child components rendered in lists with `React.memo()` when their props (like `answer`, `index`, `isDark`) are stable during the drag operation, to isolate the re-renders only to the items actually being interacted with.
