@@ -1,0 +1,3 @@
+## 2025-03-09 - Vite Build Failure on Figma Assets
+**Learning:** In this project, `pnpm run build` fails out of the box because of `figma:asset/...` imports in the `.tsx` components, as Vite tries to resolve them as actual modules.
+**Action:** When working on generic components in Figma projects, be prepared that the Vite build might not pass natively without adjusting `vite.config.ts` to externalize those assets. For performance PRs specifically, this usually sits outside the immediate scope unless modifying the config itself is requested or directly pertains to the goal. I should ignore the build failure as it's an existing issue unrelated to my current change.
