@@ -1,0 +1,3 @@
+## 2024-10-12 - React Router v7 Lazy Loading Pattern
+**Learning:** React Router v7 uses a specific `lazy` property on route objects for built-in code splitting instead of relying exclusively on `React.lazy()` and `<Suspense>`. When the target component uses named exports, the syntax requires mapping the export to the `Component` property: `lazy: () => import("...").then(m => ({ Component: m.ExportName }))`.
+**Action:** When implementing code splitting in React Router v7 apps, directly use the `lazy` route property with the `.then(m => ({ Component: ... }))` mapping pattern for named exports rather than building wrapper components with `React.lazy()`.
